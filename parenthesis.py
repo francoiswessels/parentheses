@@ -1,11 +1,10 @@
-from ast import expr_context
-from multiprocessing.sharedctypes import Value
-from turtle import st
 from typing import List
 from collections import deque
 
-from pandas_datareader import test
 
+
+class ParenthesisError(Exception):
+    pass
 
 
 OPENERS = {'(', '{'}
@@ -21,11 +20,7 @@ assert set(CLOSERS) == set(PAIRS.keys()), \
     failure. Please contact module developer.'''
 
 
-class ParenthesisError(Exception):
-    pass
-
-
-def parse(test_variable: List[str]) -> int:
+def parse(test_variable: List[str]):
     # In theory deque is faster than list here though I have not tested it myself.
     # https://realpython.com/how-to-implement-python-stack/#using-collectionsdeque-to-create-a-python-stack
     stack = deque()
@@ -43,13 +38,11 @@ def parse(test_variable: List[str]) -> int:
     
     if not len(stack) == 0:
         raise ParenthesisError(f"Imbalanced parenthesis found.")
-    
-    return 0
 
 
-def balanced(test_variable: List, start_index:int = 0, current_index:int = 0) -> bool:
+def balanced(test_variable: List) -> bool:
     try:
-        outcome = parse(test_variable)
+        parse(test_variable)
     except ParenthesisError as ex:
         return False
-    return outcome == 0
+    return True

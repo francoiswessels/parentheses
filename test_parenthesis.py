@@ -3,8 +3,8 @@ import parenthesis as ps
 
 
 
-class TestStringMethods(unittest.TestCase):
-    def test_success(self):
+class TestBalancedParenthesis(unittest.TestCase):
+    def test_good_parenthesis(self):
         success = """()
         (())
         (())()
